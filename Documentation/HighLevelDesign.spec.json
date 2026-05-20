@@ -1,0 +1,190 @@
+{
+  "title": "Software Request & Approval Platform — High-Level Architecture",
+  "subtitle": "Draft v0.3 — for client review",
+  "page": { "width": 1840, "height": 1400 },
+
+  "actors": [
+    { "id": "actor-req",   "label": "Requester\n(Employee)" },
+    { "id": "actor-app",   "label": "Approver\n(License / Security Reviewer)" },
+    { "id": "actor-admin", "label": "Platform Admin /\nDevOps Engineer" }
+  ],
+
+  "phases": {
+    "main": [
+      {
+        "id": "phase-identity",
+        "label": "IDENTITY & ACCESS",
+        "rows": [
+          ["entraId", "microsoftGraph", "securityGroup"]
+        ]
+      },
+      {
+        "id": "phase-runtime",
+        "label": "POWER PLATFORM RUNTIME",
+        "rows": [
+          [
+            "codeapp-grp",
+            "dataverse",
+            { "stack": ["pa-grp", "exchangeTeams"] }
+          ]
+        ]
+      },
+      {
+        "id": "phase-outcomes",
+        "label": "REQUEST OUTCOMES — decision branches + lifecycle terminals",
+        "rows": [
+          [
+            "decision-approve",
+            { "stack": ["term-approved", "term-moreinfo", "term-rejected"] },
+            { "stack": ["term-installed", "term-installfailed"] }
+          ]
+        ]
+      },
+      {
+        "id": "phase-cicd",
+        "label": "PLATFORM CI/CD — Azure DevOps (Code App build & release only)",
+        "rows": [
+          ["ado-checkout", "ado-test", "ado-sbom", "ado-vuln", "ado-build", "ado-push"]
+        ]
+      }
+    ],
+    "right": [
+      {
+        "id": "phase-external",
+        "label": "EXTERNAL / OUT-OF-BAND",
+        "rows": [
+          ["eproc"],
+          ["install-channel"],
+          ["appinsights"],
+          ["ppadmin"]
+        ]
+      }
+    ]
+  },
+
+  "groups": [
+    {
+      "id": "codeapp-grp",
+      "label": "codeAppComponents — React 19 + TypeScript + Vite + @microsoft/power-apps SDK",
+      "rows": [
+        ["requesterForm",  "myRequests"],
+        ["approverQueue",  "approverDecisionPanel"],
+        ["messageThread",  "auditView"],
+        ["markInstalled"]
+      ]
+    },
+    {
+      "id": "pa-grp",
+      "label": "powerAutomateFlows",
+      "rows": [
+        ["pa-approval"],
+        ["pa-fanout"],
+        ["pa-grant"],
+        ["pa-moreinfo"]
+      ]
+    }
+  ],
+
+  "nodes": [
+    { "id": "entraId",         "header": "entraId",         "body": "Tenant SSO",                              "kind": "function-call", "size": [320, 110] },
+    { "id": "microsoftGraph",  "header": "microsoftGraph",  "body": "/me/memberOf — role detection",            "kind": "function-call", "size": [380, 110] },
+    { "id": "securityGroup",   "header": "securityGroupApprovers", "body": "'SoftwareRequest-Approvers'\nEntra security group", "kind": "function-call", "size": [400, 110] },
+
+    { "id": "requesterForm",          "label": "requesterForm",                                    "kind": "function-call", "size": [230, 50] },
+    { "id": "myRequests",             "label": "myRequestsListAndDetail",                          "kind": "function-call", "size": [250, 50] },
+    { "id": "approverQueue",          "label": "approverQueue",                                    "kind": "function-call", "size": [230, 50] },
+    { "id": "approverDecisionPanel",  "header": "approverDecisionPanel", "body": "decision + licenseGrant",     "kind": "function-call", "size": [250, 60] },
+    { "id": "messageThread",          "label": "messageThread",                                    "kind": "function-call", "size": [230, 50] },
+    { "id": "auditView",              "label": "auditView",                                        "kind": "function-call", "size": [250, 50] },
+    { "id": "markInstalled",          "label": "markInstalledOrFailed",                            "kind": "function-call", "size": [260, 50] },
+
+    {
+      "id": "dataverse",
+      "header": "dataverse",
+      "body": "Request status:\nPending · Approved · Installed\nInstall failed · Rejected · More info\n\nSoftware  ·  Messages\nApprovals (history + licenseGrant)\nWorkflowState  ·  AuditLog",
+      "kind": "data-store",
+      "size": [400, 380]
+    },
+
+    { "id": "pa-approval",  "header": "approvalOrchestration", "body": "SLA · reminders · auto-escalation", "kind": "function-call", "size": [340, 60] },
+    { "id": "pa-fanout",    "label": "notificationFanOut",                                                  "kind": "function-call", "size": [340, 50] },
+    { "id": "pa-grant",     "label": "notifyApprovalWithLicenseGrant",                                       "kind": "function-call", "size": [340, 50] },
+    { "id": "pa-moreinfo",  "label": "moreInfoAutoFlip",                                                    "kind": "function-call", "size": [340, 50] },
+
+    { "id": "exchangeTeams", "header": "exchangeTeamsNotifications", "body": "email + Teams adaptive cards", "kind": "function-call", "size": [360, 90] },
+
+    { "id": "decision-approve",   "label": "approveRejectOrMoreInfo?",  "kind": "decision",              "size": [260, 90] },
+    { "id": "term-approved",      "label": "Approved",                  "kind": "intermediate-terminal", "size": [180, 55] },
+    { "id": "term-moreinfo",      "label": "More info",                 "kind": "intermediate-terminal", "size": [180, 55] },
+    { "id": "term-rejected",      "label": "Rejected",                  "kind": "terminal",              "size": [180, 55] },
+    { "id": "term-installed",     "label": "Installed",                 "kind": "terminal",              "size": [180, 55] },
+    { "id": "term-installfailed", "label": "Install failed",            "kind": "intermediate-terminal", "size": [200, 55] },
+
+    { "id": "ado-checkout", "label": "checkout",                                       "kind": "function-call", "size": [220, 90] },
+    { "id": "ado-test",     "header": "installLintTest", "body": "npm ci · ESLint\ntsc · unit tests", "kind": "function-call", "size": [240, 110] },
+    { "id": "ado-sbom",     "header": "sbomSyft",   "body": "node_modules SBOM",                      "kind": "function-call", "size": [220, 110] },
+    { "id": "ado-vuln",     "header": "vulnGrype",  "body": "gate on severity",                       "kind": "function-call", "size": [220, 110] },
+    { "id": "ado-build",    "label": "viteBuild",                                                      "kind": "function-call", "size": [220, 90] },
+    { "id": "ado-push",     "header": "pacCodePush","body": "→ Dev / Test / Prod",                    "kind": "function-call", "size": [240, 110] },
+
+    {
+      "id": "eproc",
+      "header": "eProcurementSystem",
+      "body": "PO / quote / vendor portal\nreferenced from Justification &\nevidence (URLs + attachments).\nNo integration in v1.",
+      "kind": "external", "size": [320, 180]
+    },
+    {
+      "id": "install-channel",
+      "header": "userInstallChannel",
+      "body": "Vendor download / internal portal /\nIT-mediated install. Platform is\nagnostic about which channel.",
+      "kind": "external", "size": [320, 170]
+    },
+    {
+      "id": "appinsights",
+      "header": "appInsights",
+      "body": "Client-side telemetry,\nunhandled-error logging.",
+      "kind": "external", "size": [320, 140]
+    },
+    {
+      "id": "ppadmin",
+      "header": "powerPlatformAdminCentre",
+      "body": "Flow run history, connector\nhealth, DLP enforcement.",
+      "kind": "external", "size": [320, 150]
+    }
+  ],
+
+  "edges": [
+    { "from": "actor-req",   "to": "codeapp-grp" },
+    { "from": "actor-app",   "to": "codeapp-grp" },
+
+    { "from": "codeapp-grp", "to": "entraId",         "label": "SSO" },
+    { "from": "codeapp-grp", "to": "microsoftGraph",  "label": "Graph token\n/me/memberOf" },
+    { "from": "microsoftGraph", "to": "securityGroup","label": "resolves role", "style": "dashed" },
+
+    { "from": "codeapp-grp", "to": "dataverse", "label": "read / write\nSDK-generated services", "style": "bidirectional" },
+
+    { "from": "dataverse", "to": "pa-grp",     "label": "row trigger" },
+    { "from": "pa-grp",    "to": "exchangeTeams", "label": "email + Teams" },
+
+    { "from": "exchangeTeams", "to": "actor-req", "label": "approval +\nlicenseGrant", "style": "dashed",
+      "exit": [1.0, 0.5], "entry": [0.5, 0.0],
+      "waypoints": [[1820, 880], [1820, 115], [200, 115]] },
+
+    { "from": "decision-approve", "to": "term-approved", "branchLabel": "Approve" },
+    { "from": "decision-approve", "to": "term-moreinfo", "branchLabel": "More info" },
+    { "from": "decision-approve", "to": "term-rejected", "branchLabel": "Reject" },
+
+    { "from": "term-moreinfo", "to": "messageThread", "label": "reopens thread", "style": "dashed",
+      "exit": [0.0, 0.5], "entry": [0.0, 0.5] },
+
+    { "from": "markInstalled", "to": "term-installed",     "branchLabel": "installed" },
+    { "from": "markInstalled", "to": "term-installfailed", "branchLabel": "failed" },
+
+    { "from": "ado-push",     "to": "codeapp-grp", "label": "pac code push\n(deploys Code App)" },
+
+    { "from": "codeapp-grp",  "to": "eproc",           "label": "evidence URLs\n(reference only)", "style": "dashed" },
+    { "from": "actor-req",    "to": "install-channel", "label": "self-installs with\ngranted licence\n(out of band)", "style": "dashed" }
+  ],
+
+  "legend": { "auto": true }
+}
