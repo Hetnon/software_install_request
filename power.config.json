@@ -1,0 +1,32 @@
+{
+  "version": "1.0",
+  "appId": null,
+  "appDisplayName": "Software Request",
+  "region": "prod",
+  "environmentId": "28aae012-bbfb-ee49-a6d9-8557e28acfc6",
+  "description": " ",
+  "buildPath": "./dist",
+  "buildEntryPoint": "index.html",
+  "localAppUrl": "http://localhost:3000",
+  "logoPath": "Default",
+  "connectionReferences": {},
+  "databaseReferences": {
+    "default.cds": {
+      "dataSources": {
+        "requests": {
+          "entitySetName": "cr108_requests",
+          "logicalName": "cr108_request"
+        },
+        "softwares": {
+          "entitySetName": "cr108_softwares",
+          "logicalName": "cr108_software"
+        },
+        "messages": {
+          "entitySetName": "cr108_messageses",
+          "logicalName": "cr108_messages"
+        }
+      },
+      "environmentVariableName": ""
+    }
+  }
+}

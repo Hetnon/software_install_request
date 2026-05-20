@@ -1,0 +1,59 @@
+Solutions Archictect Sent the following to the client to propose the general project configuration and approach and to also ask some definition questions:
+1.   Power Apps Code Apps – The proposed Framework
+  Power Apps Code Apps (Generally Available from February 2026) lets us build line-of-business apps with standard React + TypeScript and the normal developer toolchain (Vite, npm, Git), while still deploying onto the Power Platform — so the app automatically
+  inherits Entra single sign-on, Dataverse data, governance, security roles, and per-user licensing exactly like any traditional Power App.
+The benefit is the best of both worlds: modern code-first productivity (component reuse, source control, automated testing, fast iteration on complex UIs) on top of Microsoft-managed infrastructure that already works for governing, monitoring, and auditing — no separate
+  hosting, no separate auth, no DBA work, no new compliance surface.
+
+Power Apps Code Apps is part of Power Platform, built by the same Microsoft team that owns Power Apps, Power Automate, and Dataverse. The SDK we're using (@microsoft/power-apps) is published by Microsoft on npm, and the deployment CLI (pac code) is part of the official Power Platform CLI. There's no third party or open-source community project in the trust chain — Microsoft owns the whole stack from the React SDK down to the runtime.
+
+It automatically inherits Microsoft's existing certifications: SOC 1, SOC 2 Type II, ISO 27001/27018, HIPAA BAA, FedRAMP, GDPR, etc. Same data, same auth, same audit trail as any Power App they may already be running — it's not a new surface area for
+the compliance team to certify.
+  2. What we need to do this properly
+  Environment:
+-	One non-Developer Dataverse environment, preferably two (Dev + Prod) or three (Dev + Test + Prod) for proper ALM.  Developer environments are single-user by design — they can't host a multi-user app.
+-	Options, in order of cost/effort:
+o	Sandbox + Production environments (recommended for any business-critical app) — requires Power Platform capacity assigned by your global/tenant admin.
+o	Default environment with Dataverse provisioned — cheapest, but Default has no isolation and isn't recommended for anything beyond proof-of-concept.
+-	Confirm the region (currently Australia in the prototype). This determines data residency; needs to match your compliance requirements.
+
+  Licenses we will need for the proposed solution:
+  Each end user who runs the app needs one of:
+-	Power Apps Premium (~$20 USD/user/month) — the standard per-user license. all-you-can-eat seat for that user across every Code App and premium Canvas/Model-driven app in your entire tenant. Flat Fee, independent of use. 
+-	Power Apps Pay-as-you-go (~$10 USD per active user/month, billed via Azure subscription retroactively) — Metered, per-app, per-user-who-actually-showed-up access. Same user using 3 different premium apps in a month = $30. Same user not opening the app at all = $0.
+-	Power Apps per-app (~$5 USD/user/app/month) — cheaper if a user only ever uses this one app. Flat $5 fee per, independent of use. 
+
+  Code Apps cannot run on the free Power Apps seeded with Microsoft 365 plan (those only cover canvas apps with standard, non-Dataverse connectors). "Developers/makers also need one of the paid entitlements above (Premium, Pay-as-you-go, or per-app) plus maker
+  access to the environment.
+
+  Users, roles, and groups:
+-	All requesters and approvers must be added as users to the Dataverse environment with appropriate Dataverse security roles.
+-	two custom Dataverse security roles — SoftwareRequest-Requester (Read/Create on Request and Messages, Read on Software) and SoftwareRequest-Approver (Read/Update on Request, Read/Create on Messages, Read on Software).
+
+Security groups options:
+-	Option A (recommended): Entra ID security group. Create one group, SoftwareRequest-Approvers. Add approvers to it. The app checks group membership via Microsoft Graph. Anyone not in the group is treated as a requester. No "requesters" group or table needed — every authenticated user defaults to the requester experience. Cleanest model:  group membership is the one thing IT manages.
+-	Option B: Dataverse table. Maintain a Requesters / Approvers table in Dataverse listing who's authorized. The app queries it at sign-in. More flexible (you can store extra metadata per user — team, manager, etc.), but yet another   table for someone to maintain. Only worth it if you have data tied to each user beyond just "are they an approver?"
+-	Option C: Match the Dataverse security role itself. The app could read which security role(s) the user has and route accordingly — no extra Entra group, no extra table. Single source of truth. Slightly trickier to query from the app but doable.
+3. Questions
+
+  Governance and approvals:
+-	Who needs to sign off before this goes to production? (Power Platform admin? CoE team? IT security? Privacy/compliance?)
+-	Do you have a Centre of Excellence or admin team that gatekeeps new apps?
+-	Are there existing DLP (data loss prevention) policies on the tenant we need to check the app against? (We use the Dataverse connector — confirm that's on the allow-list.)
+
+  Lifecycle:
+-	Will there be a dev → test → prod promotion process? If yes, we'll set up Power Platform pipelines or GitHub Actions to automate it.
+-	Who owns the app long-term? (i.e., who pages when something breaks)
+
+  Notifications:
+-	Should the requester get an email or Teams notification when their request is approved/rejected/needs more info?
+-	Should approvers be notified of new pending requests? This is normally done with a Power Automate flow on the Dataverse table — we just need to know whether to scope it in.
+
+  Identity, data, and compliance:
+-	Where should the env live geographically (data residency)?
+-	Do you need Dataverse auditing enabled (full who-changed-what log per record)?
+-	Any external auditors or compliance frameworks (SOC 2, ISO 27001, GDPR/HIPAA depending on industry) we need to certify against? Power Platform inherits the relevant Microsoft certifications, but the app's data classification still needs sign-off.
+
+  Onboarding:
+-	How will new approvers/requesters be enrolled?
+-	If it's via the SoftwareRequest-Approvers Entra group, who manages group membership? (Usually the same person/team who already manages M365 group memberships.)

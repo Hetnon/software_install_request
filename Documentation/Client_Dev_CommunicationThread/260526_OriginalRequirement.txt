@@ -1,0 +1,85 @@
+Phase
+	
+Deliverables
+	
+Acceptance Criteria
+
+
+1
+	
+Solution Design
+	
+Design Document as below:
+Application Architecture
+High Level Architecture (Power platform, including power apps, automate and ADO) application architecture, physical / cloud architecture within components in scope
+Solution Intent Document
+Low Level Design - UI and UX journey for requestor and approver, component design
+Data Schema Definition - Dataverse table design for requests, approvals, workflow state model
+Solution Governance Design - Define audit trail structure, logging standards, traceability design, exception-handling rules, and artefact retention structure
+Foundation Pipeline Setup - Create baseline placeholder YAML pipeline with stages for Code Checkout, Build, SBOM generation, Vulnerability Scan, Malware Scan, Signing, and Publish.
+Application Control Security Design – Define App Control for Business (WDAC) policies to enforce execution of only approved and signed workflow components and supporting tools across test rings, aligned with the CI/CD signing and release pipeline.
+Test Ring Identification - Define Rings (pilot, IT, extended)
+	
+Design Document reviewed and signed off by Customer.
+ 
+
+
+2
+	
+Core Development and Automation Build
+	
+Core Build and Automation as below:
+Core scripts and automation logics
+Form and User Interface
+Power Automate Workflow
+Dataverse Implementation
+ADO pipeline configuration and integration with pre-packaging security tools
+Unit Testing Scripts (code coverage level as per Customer’s deployment pipeline threshold)
+Requestor Form (Power Apps) - Build UI with fields for Software name, version, license type, justification, entitlement evidence uploads (e.g. eProcurement URL) and metadata auto-fill.
+Approver Form (Power Apps) - Build interface for license team / security reviewer including approve/reject, comments, audit log, evidence view.
+Dataverse Table Setup - Create Tables for Requests, Workflow States, Approvals, Audit Logs, Exception Records, and Pipeline Events.
+Power Automate Workflow Build - Implement Sequential approval logic, timers, reminders, rejection paths, auto-escalation, and ADO pipeline trigger event emission.
+Audit Trail Logging Implementation - Create Per-request timestamped logs for each workflow action stored in Dataverse
+Integration with Email / Teams Notifications - Configure automated notifications for request submission, approval, rejection, pending actions, escalations.
+ADO Build Pipeline Development - Implement full YAML pipeline with Scanning, SBOM creation (Syft), Vulnerability scan (Grype), Malware scan, signing stage, packing stage
+Exception Handling Workflow - Implement Logic for vulnerability threshold breaches, including hold, request justification, alternate approval path.
+Unit Test Coverage Build - Create Test scripts for UI validation, workflow transitions, pipeline tasks
+CI Integration - Integrate unit tests with pipeline so pull requests and build automatically validate coverage and critical path checks.
+Bug Fixing & Refactoring - Resolve issues uncovered in unit testing and internal QA, ensure clean deployment to test environment
+	
+Build completed and deployed into Testing Environment with Customer’s approval.
+
+
+3
+	
+Acceptance Testing
+	
+Test Conditions & Cases Document (Functional Acceptance Tests)
+Test Summary Report
+ 
+Above two documents will include the following:
+Test Plan Creation - Create end to end test plan covering functional, workflow, edge cases, negative tests and pipeline execution tests
+ADO Test Cases Creation - Build detailed test cases for request submission, approval, rejection, evidence upload, audit log verification and pipeline execution
+Workflow Testing Execution - Execute all workflow test cases for multi-stage approvals, escalations, SLA timers, exceptions and error paths.
+Pipeline Testing Execution - Validate pipeline triggers, scans, signing, packaging and Intune publishing for multiple test artifacts
+Logging & Monitoring Validation - Validate audit log completeness, timestamp precision and cross system traceability
+	
+Test Conditions & Case Document and Test Summary Report reviewed and signed off by Customer.
+
+
+4
+	
+Documentation and Knowledge Transfer
+	
+User Manual
+Operational Runbook - Include workflow diagrams, pipeline stage definitions, signing process, env prerequisites and error handling
+Admin Guide - Guide for workflows, updating UI fields, changing approver groups, updating pipeline variables
+Troubleshooting Guide - Common issues, typical failure signatures (scan failures, signing issues, Intune errors), how to resolve or escalate.
+ 
+Knowledge Transfer (KT) arranged with corresponding Customer’s technology team.
+Technical KT - Conduct up to 4 sessions (~60 mins per session) for DevOps Engineers, workflow admins, covering architecture, logic and pipelines.
+Functional KT – Conduct up to 4 sessions (~60 mins per session) for license team approvers and requesters on UI workflow, approvals and exceptions.
+KT Materials Compilation - Slide decks, sample runs, demo scripts, code walkthroughs, support reference guides
+Handover Package - Final compiled deliverables, Design packs, Code repository structure, Pipeline scripts, Runbooks, Admin guides and KT materials
+	
+Handover conducted and User Manual signed off by Customer.

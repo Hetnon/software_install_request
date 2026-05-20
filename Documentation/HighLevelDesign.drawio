@@ -1,0 +1,265 @@
+<mxfile host="app.diagrams.net" modified="2026-05-20T00:00:00.000Z" agent="Claude" version="22.0.0">
+  <diagram id="page1" name="1. High-Level Architecture">
+    <mxGraphModel dx="1600" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="Software Request &amp; Approval Platform — High-Level Architecture" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1520" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="subtitle" value="Draft v0.1 — for client review" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=2;fontColor=#666666" vertex="1" parent="1">
+          <mxGeometry x="40" y="60" width="1520" height="20" as="geometry" />
+        </mxCell>
+
+        <mxCell id="actor-req" value="Requester&#10;(Employee)" style="shape=umlActor;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;html=1;outlineConnect=0;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="100" y="100" width="40" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="actor-app" value="Approver&#10;(License / Security Reviewer)" style="shape=umlActor;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;html=1;outlineConnect=0;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="280" y="100" width="40" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="actor-admin" value="Platform Admin /&#10;DevOps Engineer" style="shape=umlActor;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;html=1;outlineConnect=0;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="480" y="100" width="40" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="tenant" value="CLIENT TENANT (Microsoft 365 + Power Platform + Azure)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#666666;dashed=1;verticalAlign=top;fontSize=12;fontStyle=1;fontColor=#666666" vertex="1" parent="1">
+          <mxGeometry x="40" y="210" width="1200" height="870" as="geometry" />
+        </mxCell>
+
+        <mxCell id="entra" value="Entra ID&#10;(Tenant SSO)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontSize=13" vertex="1" parent="1">
+          <mxGeometry x="80" y="250" width="280" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="grp" value="Entra Security Group&#10;'SoftwareRequest-Approvers'" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontSize=13" vertex="1" parent="1">
+          <mxGeometry x="400" y="250" width="280" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pp" value="POWER PLATFORM" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#9673A6;dashed=1;verticalAlign=top;fontSize=12;fontStyle=1;fontColor=#9673A6" vertex="1" parent="1">
+          <mxGeometry x="80" y="360" width="1140" height="320" as="geometry" />
+        </mxCell>
+
+        <mxCell id="codeapp" value="Power Apps Code App&#10;&#10;React 19 + TypeScript + Vite&#10;@microsoft/power-apps SDK&#10;&#10;Requester form · Approver form&#10;Messages thread · Audit view&#10;Decision panel (Approve / Reject / More info)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E1D5E7;strokeColor=#9673A6;fontSize=12;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="120" y="400" width="320" height="160" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dv" value="Dataverse&#10;&#10;Requests · Software catalog&#10;Messages · Approvals (history)&#10;Workflow States · Audit Logs&#10;Exception Records · Pipeline Events" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#E1D5E7;strokeColor=#9673A6;fontSize=12;align=center" vertex="1" parent="1">
+          <mxGeometry x="500" y="400" width="320" height="240" as="geometry" />
+        </mxCell>
+
+        <mxCell id="pa" value="Power Automate&#10;&#10;Approval orchestration · SLA timers&#10;Reminders · Auto-escalation&#10;Notifications · ADO pipeline trigger&#10;Exception routing" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E1D5E7;strokeColor=#9673A6;fontSize=12;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="120" y="580" width="320" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="notify" value="Exchange / Teams&#10;&#10;Email + Teams card notifications&#10;(approval pending, decided, escalated)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#D5E8D4;strokeColor=#82B366;fontSize=12;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="880" y="400" width="320" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ado" value="AZURE DEVOPS — Build &amp; Security Pipeline" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#0066CC;dashed=1;verticalAlign=top;fontSize=12;fontStyle=1;fontColor=#0066CC" vertex="1" parent="1">
+          <mxGeometry x="80" y="710" width="1140" height="170" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ado-checkout" value="Checkout" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="100" y="780" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ado-build" value="Build /&#10;Package" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="250" y="780" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ado-sbom" value="SBOM&#10;(Syft)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="400" y="780" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ado-vuln" value="Vuln scan&#10;(Grype)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="550" y="780" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ado-mal" value="Malware&#10;scan" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="700" y="780" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ado-sign" value="Sign&#10;(org cert)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="850" y="780" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ado-pub" value="Publish&#10;(Intune)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DAE8FC;strokeColor=#6C8EBF;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="1000" y="780" width="130" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ado-e1" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="ado-checkout" target="ado-build"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ado-e2" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="ado-build" target="ado-sbom"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ado-e3" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="ado-sbom" target="ado-vuln"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ado-e4" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="ado-vuln" target="ado-mal"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ado-e5" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="ado-mal" target="ado-sign"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="ado-e6" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="ado-sign" target="ado-pub"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="intune" value="Microsoft Intune&#10;&#10;App registration · Ring-based assignment&#10;(Pilot → IT → Extended)&#10;WDAC policy distribution" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFE6CC;strokeColor=#D79B00;fontSize=12;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="120" y="920" width="500" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="endpoints" value="Managed Endpoints (W11) — WDAC enforced&#10;&#10;Only signed, approved binaries execute&#10;Pilot ring · IT ring · Extended ring" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;strokeColor=#D6B656;fontSize=12;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="680" y="920" width="500" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="external" value="EXTERNAL SYSTEMS" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#666666;dashed=1;verticalAlign=top;fontSize=12;fontStyle=1;fontColor=#666666" vertex="1" parent="1">
+          <mxGeometry x="1280" y="210" width="300" height="320" as="geometry" />
+        </mxCell>
+
+        <mxCell id="vendor" value="Software Vendor Source&#10;&#10;Vendor website / internal binary repo&#10;(installer fetched at pipeline build)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;fontSize=12;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="1300" y="250" width="260" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="eproc" value="eProcurement System&#10;&#10;Entitlement evidence URL&#10;(linked from requester form,&#10;no integration in v1)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#666666;fontSize=12;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="1300" y="390" width="260" height="120" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e-req-app" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="actor-req" target="codeapp">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="sourcePoint" x="120" y="160" /></mxGeometry>
+        </mxCell>
+        <mxCell id="e-app-app" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="actor-app" target="codeapp">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-admin-pp" value="manages env, pipelines, policies" style="endArrow=classic;html=1;rounded=0;dashed=1;fontSize=10;labelBackgroundColor=#ffffff" edge="1" parent="1" source="actor-admin" target="pp">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e-app-entra" value="SSO" style="endArrow=classic;html=1;rounded=0;fontSize=10;labelBackgroundColor=#ffffff" edge="1" parent="1" source="codeapp" target="entra">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-app-grp" value="Graph: group&#10;membership&#10;(role detection)" style="endArrow=classic;html=1;rounded=0;fontSize=10;labelBackgroundColor=#ffffff" edge="1" parent="1" source="codeapp" target="grp">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e-app-dv" value="read / write&#10;via generated services" style="endArrow=classic;html=1;startArrow=classic;rounded=0;fontSize=10;labelBackgroundColor=#ffffff" edge="1" parent="1" source="codeapp" target="dv">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e-dv-pa" value="row trigger&#10;(create / status change)" style="endArrow=classic;html=1;rounded=0;fontSize=10;labelBackgroundColor=#ffffff" edge="1" parent="1" source="dv" target="pa">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-pa-dv" value="audit + state writes" style="endArrow=classic;html=1;rounded=0;dashed=1;fontSize=10;labelBackgroundColor=#ffffff" edge="1" parent="1" source="pa" target="dv">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="460" y="540" /></Array></mxGeometry>
+        </mxCell>
+
+        <mxCell id="e-pa-notify" value="email + Teams" style="endArrow=classic;html=1;rounded=0;fontSize=10;labelBackgroundColor=#ffffff" edge="1" parent="1" source="pa" target="notify">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e-pa-ado" value="trigger pipeline&#10;on Approved" style="endArrow=classic;html=1;rounded=0;fontSize=10;labelBackgroundColor=#ffffff" edge="1" parent="1" source="pa" target="ado-checkout">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e-ado-vendor" value="fetch installer" style="endArrow=classic;html=1;rounded=0;fontSize=10;labelBackgroundColor=#ffffff" edge="1" parent="1" source="ado-checkout" target="vendor">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e-ado-intune" value="publish signed package" style="endArrow=classic;html=1;rounded=0;fontSize=10;labelBackgroundColor=#ffffff" edge="1" parent="1" source="ado-pub" target="intune">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e-intune-ep" value="deploy by ring + WDAC policy" style="endArrow=classic;html=1;rounded=0;fontSize=10;labelBackgroundColor=#ffffff" edge="1" parent="1" source="intune" target="endpoints">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e-app-eproc" value="evidence URL&#10;(reference only)" style="endArrow=classic;html=1;rounded=0;dashed=1;fontSize=10;labelBackgroundColor=#ffffff" edge="1" parent="1" source="codeapp" target="eproc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend" value="Legend" style="text;html=1;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="1280" y="560" width="300" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-1" value="Solid arrow = synchronous call / data flow&#10;Dashed arrow = trigger / async / reference&#10;Blue = Identity (Entra)&#10;Purple = Power Platform&#10;Light blue = Azure DevOps pipeline&#10;Orange = Intune&#10;Yellow = Managed endpoints (WDAC)&#10;Green = Microsoft 365 messaging&#10;Grey = External systems" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#CCCCCC;fontSize=11;align=left;verticalAlign=top;spacingLeft=8;spacingTop=8" vertex="1" parent="1">
+          <mxGeometry x="1280" y="580" width="300" height="180" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="page2" name="2. End-to-End Request Lifecycle">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ph2-title" value="2. End-to-End Request Lifecycle" style="text;html=1;align=center;verticalAlign=middle;fontSize=18;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="1120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ph2-note" value="Placeholder — to be drafted after high-level sign-off.&#10;&#10;Will show: sequence diagram across Requester → Code App → Dataverse → Power Automate → Approver → ADO pipeline → Intune → Endpoint.&#10;Includes happy path, More Info loop, Rejection + Reopen, and Exception path (vulnerability threshold breach)." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#CCCCCC;fontSize=13;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="240" y="280" width="720" height="240" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="page3" name="3. Dataverse Data Model (ERD)">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ph3-title" value="3. Dataverse Data Model (ERD)" style="text;html=1;align=center;verticalAlign=middle;fontSize=18;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="1120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ph3-note" value="Placeholder — to be drafted after high-level sign-off.&#10;&#10;Will show: full table list with columns, types, required flags, choice options, and relationships.&#10;Tables: Request, Software, Messages, Approvals (history), WorkflowState, AuditLog, ExceptionRecord, PipelineEvent.&#10;Will also show lookups to systemuser and Entra-group-derived role." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#CCCCCC;fontSize=13;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="240" y="280" width="720" height="240" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="page4" name="4. Power Automate Workflows">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ph4-title" value="4. Power Automate Workflows" style="text;html=1;align=center;verticalAlign=middle;fontSize=18;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="1120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ph4-note" value="Placeholder — to be drafted after high-level sign-off.&#10;&#10;Will show: one BPMN-style diagram per flow.&#10;Flows in scope: (1) Approval orchestration with SLA timer + reminder + auto-escalation, (2) Notification fan-out (email + Teams), (3) Pipeline trigger on Approved, (4) Exception routing on vuln-threshold breach, (5) Status-on-reply auto-flip for More Info responses." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#CCCCCC;fontSize=13;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="200" y="260" width="800" height="280" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="page5" name="5. ADO Pipeline Stages">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ph5-title" value="5. ADO Pipeline Stages (detailed)" style="text;html=1;align=center;verticalAlign=middle;fontSize=18;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="1120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ph5-note" value="Placeholder — to be drafted after high-level sign-off.&#10;&#10;Will show: YAML stage breakdown with inputs/outputs per stage, gating policies (vuln-severity thresholds, signature requirements), service connections, and artifact flow.&#10;Stages: Checkout → Build/Package → SBOM (Syft) → Vuln scan (Grype) → Malware scan → Sign → Publish to Intune.&#10;Includes Exception path when a gate fails." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#CCCCCC;fontSize=13;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="200" y="260" width="800" height="280" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="page6" name="6. Intune Deployment &amp; Rings">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ph6-title" value="6. Intune Deployment &amp; Test Rings" style="text;html=1;align=center;verticalAlign=middle;fontSize=18;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="1120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ph6-note" value="Placeholder — to be drafted after high-level sign-off.&#10;&#10;Will show: ring assignment model (Pilot, IT, Extended), Intune app + assignment objects, WDAC base + supplemental policy distribution, rollback/recall path, and how a failed ring blocks progression.&#10;Ring sizes and cadence to be agreed with client." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#CCCCCC;fontSize=13;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="200" y="260" width="800" height="280" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="page7" name="7. Security &amp; Identity Model">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ph7-title" value="7. Security &amp; Identity Model" style="text;html=1;align=center;verticalAlign=middle;fontSize=18;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="1120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ph7-note" value="Placeholder — to be drafted after high-level sign-off.&#10;&#10;Will show: layered identity model — Entra user → Entra security group → Dataverse user → Dataverse custom security role.&#10;Plus: Graph permissions used by the app, Power Platform DLP policy alignment, code-signing certificate lifecycle (issue, store in Key Vault, rotate), WDAC policy authoring + signing chain." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#CCCCCC;fontSize=13;align=center;verticalAlign=middle" vertex="1" parent="1">
+          <mxGeometry x="200" y="260" width="800" height="280" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
