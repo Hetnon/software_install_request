@@ -1,0 +1,9 @@
+Requirements
+
+Jira user Stories in excel based on the diagram
+- workflow use cases:
+- Requester: Request / Responding More Information / Software Install Occurred
+- Admin: Approving / Rejecting / Request More Info 
+
+
+

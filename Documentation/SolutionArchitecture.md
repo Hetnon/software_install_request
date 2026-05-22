@@ -1,3 +1,5 @@
+The Confluence import flow is: paste this file's contents into a new Confluence page using **Insert → Markdown**. The draw.io file can be attached to the page and opened with the *draw.io for Confluence* app, or exported to PNG for inline embedding.
+
 # Software Request & Approval Platform — Solution Architecture
 
 > **Document control**
@@ -17,8 +19,6 @@ The platform exists to **keep licensed-software requests separate from the every
 
 Provisioning the approved software onto the user's device remains an operational task carried out by IT through the client's existing channels (Intune, manual install, scripted deployment — whichever the client already uses). The platform's role in installation is to **dispatch and track** it: notify the right team when a request is raised, notify the user when the installation is approved with the provision of the license to the user. Automatic confirmation that the install happened is out of scope, but it can be manually tracked via status in the system with audit trail.
 
-**Out of scope**: 
-
 This document records:
 
 - Architecture decisions already made (with rationale)
@@ -26,8 +26,6 @@ This document records:
 - Cross-cutting concerns (security, audit, ALM, observability)
 - Open discussion points that still need a client decision
 - A roadmap of the lower-level design artefacts we will produce after this high-level design is signed off
-
-The Confluence import flow is: paste this file's contents into a new Confluence page using **Insert → Markdown**. The draw.io file can be attached to the page and opened with the *draw.io for Confluence* app, or exported to PNG for inline embedding.
 
 ## 2. Scope
 
@@ -229,7 +227,6 @@ These are the tabs in `HighLevelDesign.drawio` that currently hold placeholders.
 These need answers before the design can be finalised and the production build can start.
 
 ### 8.1 Original requirement disambiguation (highest priority)
-
 The Phase 1 and Phase 2 deliverables in the original requirement list a full ADO pipeline (Syft / Grype / malware / sign), WDAC policies, Intune publishing, and test rings. This architecture reads those as **adjacent to the platform**, not as features built into it:
 
 - The ADO pipeline in this design is for the **Code App's own CI/CD** (build, scan npm deps, `pac code push`).

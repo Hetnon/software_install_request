@@ -1,0 +1,8 @@
+Current State
+Forms available for Licensed and non licensed apps in sharepoint 
+- both forms will be removed from SharePoint and replaced by our Software Request App
+- but if they are selected less fields will be different, goes in a different flow, etc
+- end of life of the apps should be trigger messages to the group of users that have the app installed
+- create reports with the status for the admins to understand
+- ADO is the pipeline for the the deployment of the app we are building now, not related to the deployment of the app installation that is the workflow of our app itself. (also confirm with Sandya)
+- Ask Sandya about the Intune or other important wirings 
